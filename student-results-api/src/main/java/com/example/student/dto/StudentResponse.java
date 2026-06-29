@@ -23,4 +23,6 @@ public class StudentResponse {
 
     private String grade;
 
+    private String result;
+
 }

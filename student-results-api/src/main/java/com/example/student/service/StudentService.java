@@ -48,16 +48,20 @@ public class StudentService {
 
         response.setSubjects(subjects);
 
-        int total =
-                marks.stream()
-                        .mapToInt(StudentMark::getMarks)
-                        .sum();
+        int total = marks.stream()
+          .mapToInt(StudentMark::getMarks)
+          .sum();
+
+        double percentage = total / 6.0;
 
         response.setTotal(total);
+        response.setPercentage(percentage);
+        response.setGrade(getGrade(percentage));
 
-        response.setPercentage(total / 6.0);
+        boolean pass = marks.stream()
+                .allMatch(mark -> mark.getMarks() >= 35);
 
-        response.setGrade(getGrade(total / 6.0));
+        response.setResult(pass ? "PASS" : "FAIL");
 
         return response;
     }
