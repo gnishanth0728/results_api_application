@@ -7,6 +7,7 @@ import com.example.student.entity.StudentMark;
 import com.example.student.repository.StudentMarksRepository;
 import com.example.student.repository.StudentRepository;
 import org.springframework.stereotype.Service;
+import com.example.student.exception.StudentNotFoundException;
 
 import java.util.List;
 
@@ -25,9 +26,10 @@ public class StudentService {
 
     public StudentResponse getStudentResult(Long rollNumber) {
 
-        Student student = studentRepository.findById(rollNumber)
-                .orElseThrow(() ->
-                        new RuntimeException("Student not found"));
+        Student student =
+                studentRepository.findById(rollNumber)
+                        .orElseThrow(() -> new RuntimeException(
+                                "Student not found with roll number: " + rollNumber));
 
         List<StudentMark> marks =
                 marksRepository.findByRollNumber(rollNumber);
