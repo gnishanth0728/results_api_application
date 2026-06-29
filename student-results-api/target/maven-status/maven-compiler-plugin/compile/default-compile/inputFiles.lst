@@ -1,0 +1,12 @@
+/home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/StudentResultsApiApplication.java
+/home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/config/SwaggerConfig.java
+/home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/controller/StudentController.java
+/home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/dto/StudentResponse.java
+/home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/dto/SubjectResponse.java
+/home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/entity/Student.java
+/home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/entity/StudentMark.java
+/home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/exception/GlobalExceptionHandler.java
+/home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/exception/StudentNotFoundException.java
+/home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/repository/StudentMarksRepository.java
+/home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/repository/StudentRepository.java
+/home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/service/StudentService.java
