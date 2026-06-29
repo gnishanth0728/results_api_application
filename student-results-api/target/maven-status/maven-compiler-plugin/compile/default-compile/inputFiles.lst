@@ -1,6 +1,8 @@
 /home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/StudentResultsApiApplication.java
+/home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/config/CorsConfig.java
 /home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/config/SwaggerConfig.java
 /home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/controller/StudentController.java
+/home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/dto/ErrorResponse.java
 /home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/dto/StudentResponse.java
 /home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/dto/SubjectResponse.java
 /home/udz1kor/results-api-application/student-results-api/src/main/java/com/example/student/entity/Student.java

@@ -4,7 +4,7 @@
 --   1. students
 --   2. student_marks
 --   3. Indexes
---   4. 1,00,000 students (1051100000 - 10511199999)
+--   4. 10,000 students (1051100000 - 10511199999)
 --   5. 60,000 marks (6 subjects per student)
 -- ============================================================
 
@@ -48,7 +48,7 @@ SELECT
         'Verma','Gupta','Nair','Rao','Joshi',
         'Iyer','Mehta','Das','Kulkarni','Gundlapalle'
     ])[((r % 15) + 1)]
-FROM generate_series(10511100000,10511199999) AS r;
+FROM generate_series(1051110000,1051119999) AS r;
 
 INSERT INTO student_marks (roll_number, subject_name, marks)
 SELECT

@@ -10,15 +10,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(StudentNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleStudentNotFound(
-            StudentNotFoundException ex) {
+    public ResponseEntity<ErrorResponse> handleStudentNotFound(StudentNotFoundException ex) {
 
-        ErrorResponse response = new ErrorResponse(
-                HttpStatus.NOT_FOUND.value(),
+        ErrorResponse error = new ErrorResponse(
+                404,
                 "Not Found",
-                ex.getMessage());
+                ex.getMessage()
+        );
 
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
-
 }
