@@ -28,7 +28,7 @@ public class StudentService {
 
         Student student =
                 studentRepository.findById(rollNumber)
-                        .orElseThrow(() -> new RuntimeException(
+                        .orElseThrow(() -> new StudentNotFoundException(
                                 "Student not found with roll number: " + rollNumber));
 
         List<StudentMark> marks =
