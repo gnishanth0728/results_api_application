@@ -44,6 +44,13 @@ All of this happens in milliseconds.
 
 ---
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart LR
+Browser-->Router-->ISP-->Internet-->Cloud-->Server
+```
+
 # 🎯 Learning Objectives
 
 After completing this chapter you will understand:

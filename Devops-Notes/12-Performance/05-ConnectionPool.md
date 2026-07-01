@@ -26,6 +26,13 @@ No.
 
 Instead, Spring Boot uses a connection pool.
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart TD
+Application-->HikariCP-->JDBC-->Database
+```
+
 🎯 Learning Objectives
 
 After completing this chapter you will understand:

@@ -91,6 +91,17 @@ It automates deployment, scaling, networking, recovery, and lifecycle management
 
 ---
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart LR
+API_Server-->Scheduler
+API_Server-->Controller
+Scheduler-->Node
+Node-->Pod
+Pod-->Container
+```
+
 # 🎯 Learning Objectives
 
 After completing this chapter you will understand:

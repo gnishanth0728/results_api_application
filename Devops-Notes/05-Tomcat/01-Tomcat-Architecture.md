@@ -71,6 +71,13 @@ Without Tomcat, Spring Boot would never receive an HTTP request.
 
 ---
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart TD
+Acceptor-->Poller-->Worker
+```
+
 # 🎯 Learning Objectives
 
 After completing this chapter you will understand:

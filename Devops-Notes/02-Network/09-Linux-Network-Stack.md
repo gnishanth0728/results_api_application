@@ -49,6 +49,13 @@ Only after completing this journey does Spring MVC begin processing the HTTP req
 
 ---
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart TD
+NIC-->Ethernet-->IP-->TCP-->Socket
+```
+
 # 🎯 Learning Objectives
 
 After completing this chapter you will understand:

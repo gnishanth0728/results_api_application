@@ -69,6 +69,13 @@ To answer that, we first need to understand PostgreSQL's internal architecture.
 
 ---
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart LR
+Parser-->Planner-->Executor-->Disk
+```
+
 # 🎯 Learning Objectives
 
 After completing this chapter you will understand:

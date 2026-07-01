@@ -32,6 +32,17 @@ This request begins in the browser and ends only after the result is displayed b
 
 ---
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart TD
+User-->Button
+Button-->React
+React-->Axios
+Axios-->HTTPRequest
+HTTPRequest-->TCP
+```
+
 # 🎯 Learning Objectives
 
 After completing this chapter, you will understand:

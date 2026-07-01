@@ -115,6 +115,13 @@ Ingress provides HTTP and HTTPS routing from outside the cluster to internal Ser
 
 ---
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart LR
+Client-->Ingress-->Service-->kubeProxy[kube-proxy]-->Pod-->Container
+```
+
 # 🎯 Learning Objectives
 
 After completing this chapter you will understand:

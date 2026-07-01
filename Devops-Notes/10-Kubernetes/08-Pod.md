@@ -59,6 +59,15 @@ This chapter explains Pods from Kubernetes YAML all the way down to Linux namesp
 
 ---
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart TD
+Pod-->Pause
+Pause-->App1
+Pause-->App2
+```
+
 # 🌍 Introduction
 
 In the previous chapter, we learned how kubelet uses the container runtime to create Linux containers.

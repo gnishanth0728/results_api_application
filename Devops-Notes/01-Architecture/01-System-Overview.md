@@ -24,6 +24,27 @@ Rather than memorizing concepts independently, you'll see how they connect toget
 
 ---
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart LR
+Browser-->HTTP
+HTTP-->Internet
+Internet-->Linux
+Linux-->Socket
+Socket-->Java
+Java-->Tomcat
+Tomcat-->DispatcherServlet
+DispatcherServlet-->Controller
+Controller-->Service
+Service-->Repository
+Repository-->Hibernate
+Hibernate-->HikariCP
+HikariCP-->PostgreSQL
+PostgreSQL-->JSON
+JSON-->Browser
+```
+
 # 🎯 Learning Objectives
 
 After completing this chapter, you should understand:

@@ -28,6 +28,13 @@ No.
 
 Different business questions require different performance tests.
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart LR
+ApacheBench-->SpringBoot-->Prometheus-->Grafana
+```
+
 🎯 Learning Objectives
 
 After completing this chapter you will understand:

@@ -76,6 +76,13 @@ In REST APIs, instead of rendering HTML views, the response is usually **JSON**.
 
 ---
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart TD
+DispatcherServlet-->HandlerMapping-->Controller-->Service-->Repository
+```
+
 # 🎯 Learning Objectives
 
 After completing this chapter you will understand:

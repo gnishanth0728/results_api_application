@@ -63,6 +63,16 @@ This entire module is about understanding **everything that happens inside the J
 
 ---
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart TD
+Heap-->Young
+Heap-->Old
+Metaspace
+Stack
+```
+
 # 🎯 Learning Objectives
 
 After completing this chapter you will understand:

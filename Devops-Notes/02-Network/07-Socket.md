@@ -38,6 +38,13 @@ Without sockets, applications could never communicate over a network.
 
 ---
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart TD
+Socket-->Bind-->Listen-->Accept-->ReadWrite-->Close
+```
+
 # 🎯 Learning Objectives
 
 After completing this chapter you will understand:

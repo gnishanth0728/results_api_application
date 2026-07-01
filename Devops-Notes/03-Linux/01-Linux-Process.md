@@ -46,6 +46,13 @@ Understanding processes means understanding the foundation of Docker and Kuberne
 
 ---
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart TD
+ELF-->Process-->Threads-->Heap
+```
+
 # 🎯 Learning Objectives
 
 After completing this chapter you will understand:

@@ -50,6 +50,13 @@ Without Entities, Hibernate would have no idea how Java objects relate to relati
 
 ---
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart TD
+Entity-->PersistenceContext-->SQL
+```
+
 # 🎯 Learning Objectives
 
 After completing this chapter you will understand:

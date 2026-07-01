@@ -84,6 +84,13 @@ To understand Kubernetes, we must first understand Docker.
 
 ---
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart TD
+Host-->DockerEngine-->Container-->SpringBoot
+```
+
 # 🎯 Learning Objectives
 
 After completing this chapter you will understand:

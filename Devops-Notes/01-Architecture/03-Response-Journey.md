@@ -18,6 +18,13 @@ This chapter follows the complete return path.
 
 ---
 
+## Mermaid Snapshot (From deep-dive)
+
+```mermaid
+flowchart LR
+Entity-->DTO-->Jackson-->JSON-->Browser
+```
+
 # 🎯 Learning Objectives
 
 After completing this chapter you will understand:
