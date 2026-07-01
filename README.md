@@ -2,24 +2,19 @@
 
 A great next step is to design and implement a production-style project, for example:
 
-Internet
-    │
-    ▼
-NGINX / Ingress
-    │
-    ▼
-API Gateway
-    │
- ┌───┼─────────────┐
- ▼   ▼             ▼
-Auth Student    Result
-Service Service  Service
- │      │          │
- ▼      ▼          ▼
-Postgres Redis   Kafka
-        │
-        ▼
-Notification Service
+```mermaid
+graph LR
+    Internet --> NGINX
+    NGINX --> APIGateway
+    APIGateway --> Auth
+    APIGateway --> StudentService
+
+    StudentService --> PostgreSQL
+    StudentService --> Redis
+    StudentService --> Kafka
+
+    Kafka --> NotificationService
+```
 
 Deploy it using:
 
