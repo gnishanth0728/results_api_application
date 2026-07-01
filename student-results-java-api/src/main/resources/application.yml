@@ -1,4 +1,5 @@
 # configure the database connection
+# Resource folder contains the configurations related to database.
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/school

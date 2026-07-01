@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+// Entity represents the database tables.
+// Each entity class is mapped to one row in the table.
 @Entity
 @Table(name = "students")
 @Getter

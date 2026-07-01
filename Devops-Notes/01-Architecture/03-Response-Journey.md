@@ -273,3 +273,687 @@ At this stage:
 The next step is to transform this DTO into JSON, construct the HTTP response, transmit it back to the browser, and let React update the user interface.
 
 ➡️ **Next Part:** **📄 Jackson Serialization → HTTP Response → Browser → React Rendering**
+
+# 📘 Part 2 — DTO → JSON → HTTP Response → Browser → React Rendering
+
+## 🌍 Introduction
+
+In **Part 1**, we followed the request from the browser all the way to PostgreSQL and back into the Spring Boot application.
+
+At this stage:
+
+- 🐘 PostgreSQL has executed the SQL query.
+- 🔗 JDBC has received the database response.
+- ⚙️ Hibernate has mapped database rows into Java objects.
+- 🧠 The Service layer has applied business rules.
+- 📦 A DTO (Data Transfer Object) is ready.
+
+The next journey is returning the data to the browser.
+
+This chapter explains what happens after the DTO is returned from the Service until the user finally sees the updated page in React.
+
+---
+
+# 🎯 Learning Objectives
+
+After completing this chapter you will understand:
+
+- Jackson Serialization
+- HTTP Response Creation
+- Tomcat Response Processing
+- Linux TCP/IP Response Flow
+- Browser Response Processing
+- Axios Promise Resolution
+- React State Updates
+- Virtual DOM
+- Browser Rendering Pipeline
+
+---
+
+# Complete Response Flow
+
+```text
+PostgreSQL
+      │
+      ▼
+JDBC ResultSet
+      │
+      ▼
+Hibernate Entity
+      │
+      ▼
+Service Layer
+      │
+      ▼
+DTO
+      │
+      ▼
+Jackson Serialization
+      │
+      ▼
+JSON
+      │
+      ▼
+HTTP Response
+      │
+      ▼
+Tomcat
+      │
+      ▼
+Linux TCP/IP Stack
+      │
+      ▼
+Internet
+      │
+      ▼
+Browser
+      │
+      ▼
+Axios
+      │
+      ▼
+React
+      │
+      ▼
+Virtual DOM
+      │
+      ▼
+Real DOM
+      │
+      ▼
+Browser Rendering Engine
+      │
+      ▼
+GPU
+      │
+      ▼
+Screen
+```
+
+---
+
+# Step 1 — Controller Returns DTO
+
+The controller returns a Java object.
+
+```java
+@GetMapping("/{rollNumber}")
+public StudentResponseDTO getStudent(
+        @PathVariable String rollNumber) {
+
+    return studentService.getStudent(rollNumber);
+}
+```
+
+Notice:
+
+The controller **does not create JSON**.
+
+It simply returns a Java object.
+
+---
+
+# Step 2 — DispatcherServlet Receives the DTO
+
+Execution returns to Spring MVC.
+
+```text
+Controller
+
+↓
+
+DispatcherServlet
+```
+
+DispatcherServlet asks:
+
+> "How should I send this object back to the client?"
+
+---
+
+# Step 3 — HttpMessageConverter
+
+Spring selects an appropriate message converter.
+
+For REST APIs:
+
+```text
+MappingJackson2HttpMessageConverter
+```
+
+Flow:
+
+```text
+DispatcherServlet
+
+↓
+
+HttpMessageConverter
+
+↓
+
+Jackson
+```
+
+---
+
+# Step 4 — Jackson Serialization
+
+Jackson converts the Java object into JSON.
+
+```text
+StudentResponseDTO
+
+↓
+
+ObjectMapper
+
+↓
+
+JSON
+```
+
+Example DTO
+
+```java
+StudentResponseDTO
+```
+
+becomes
+
+```json
+{
+  "rollNumber":"1051110001",
+  "firstName":"Nishanth",
+  "lastName":"Gundlapalle",
+  "subjects":[
+      {
+          "subject":"Math",
+          "marks":95
+      }
+  ]
+}
+```
+
+Jackson automatically serializes:
+
+- Strings
+- Numbers
+- Lists
+- Nested Objects
+
+---
+
+# Step 5 — HTTP Response Construction
+
+Spring now builds the HTTP response.
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 480
+
+{
+   ...
+}
+```
+
+Response contains
+
+- Status Code
+- Headers
+- JSON Body
+
+---
+
+# Step 6 — Tomcat Sends the Response
+
+Tomcat writes the response into the socket.
+
+```text
+Spring MVC
+
+↓
+
+Tomcat
+
+↓
+
+Socket OutputStream
+```
+
+Internally:
+
+```java
+OutputStream.write(...)
+```
+
+Eventually Tomcat calls the Linux kernel.
+
+---
+
+# Step 7 — Linux Kernel Networking
+
+Linux receives the response bytes.
+
+```text
+JSON
+
+↓
+
+TCP
+
+↓
+
+IP
+
+↓
+
+Ethernet
+```
+
+The kernel performs:
+
+- TCP segmentation
+- IP packet creation
+- Ethernet framing
+
+---
+
+# Step 8 — NIC Sends Frames
+
+Network Interface Card (NIC):
+
+```text
+Memory
+
+↓
+
+DMA
+
+↓
+
+NIC
+
+↓
+
+Ethernet Cable / WiFi
+```
+
+Frames leave the server.
+
+---
+
+# Step 9 — Internet Routing
+
+Routers forward packets.
+
+```text
+Server
+
+↓
+
+Switch
+
+↓
+
+Router
+
+↓
+
+ISP
+
+↓
+
+Internet
+
+↓
+
+Client ISP
+
+↓
+
+Client Router
+
+↓
+
+Laptop
+```
+
+Every router uses:
+
+```text
+Destination IP Address
+```
+
+to decide the next hop.
+
+---
+
+# Step 10 — Browser Receives Packets
+
+Laptop NIC receives Ethernet frames.
+
+Linux kernel performs:
+
+```text
+Ethernet
+
+↓
+
+IP
+
+↓
+
+TCP
+
+↓
+
+HTTP
+```
+
+TCP reconstructs the original byte stream.
+
+---
+
+# Step 11 — Browser HTTP Stack
+
+Browser receives:
+
+```http
+HTTP/1.1 200 OK
+```
+
+Browser parses:
+
+- Status
+- Headers
+- JSON
+
+---
+
+# Step 12 — Axios Receives Response
+
+Axios resolves its Promise.
+
+```javascript
+axios.get("/students/1051110001")
+```
+
+becomes
+
+```javascript
+response.data
+```
+
+Example:
+
+```javascript
+{
+    rollNumber:"1051110001",
+    firstName:"Nishanth"
+}
+```
+
+---
+
+# Step 13 — React Updates State
+
+Component updates state.
+
+```javascript
+setStudent(response.data)
+```
+
+React detects:
+
+```text
+State Changed
+```
+
+---
+
+# Step 14 — Virtual DOM
+
+React creates a new Virtual DOM.
+
+```text
+Old Virtual DOM
+
+↓
+
+New Virtual DOM
+
+↓
+
+Diff
+```
+
+React identifies:
+
+```text
+Only Changed Elements
+```
+
+---
+
+# Step 15 — Real DOM Update
+
+React updates only modified DOM nodes.
+
+```text
+Virtual DOM
+
+↓
+
+Real DOM
+```
+
+Instead of rebuilding the entire page.
+
+---
+
+# Step 16 — Browser Rendering Pipeline
+
+Browser rendering engine executes:
+
+```text
+DOM
+
+↓
+
+CSSOM
+
+↓
+
+Render Tree
+
+↓
+
+Layout
+
+↓
+
+Paint
+
+↓
+
+Composite
+```
+
+Each stage prepares the page for display.
+
+---
+
+# Step 17 — GPU Composition
+
+Browser sends drawing commands.
+
+```text
+Browser
+
+↓
+
+GPU
+
+↓
+
+Frame Buffer
+```
+
+GPU composes the final image.
+
+---
+
+# Step 18 — Pixels on Screen
+
+Monitor refreshes.
+
+```text
+Frame Buffer
+
+↓
+
+Monitor
+
+↓
+
+Pixels
+```
+
+The student result is now visible.
+
+---
+
+# Complete End-to-End Response Journey
+
+```text
+Service Layer
+      │
+      ▼
+StudentResponseDTO
+      │
+      ▼
+DispatcherServlet
+      │
+      ▼
+HttpMessageConverter
+      │
+      ▼
+Jackson ObjectMapper
+      │
+      ▼
+JSON
+      │
+      ▼
+HTTP Response
+      │
+      ▼
+Tomcat
+      │
+      ▼
+Linux Socket
+      │
+      ▼
+TCP
+      │
+      ▼
+IP
+      │
+      ▼
+Ethernet
+      │
+      ▼
+NIC
+      │
+      ▼
+Internet
+      │
+      ▼
+Browser TCP Stack
+      │
+      ▼
+HTTP Parser
+      │
+      ▼
+Axios
+      │
+      ▼
+React State
+      │
+      ▼
+Virtual DOM
+      │
+      ▼
+Real DOM
+      │
+      ▼
+Rendering Engine
+      │
+      ▼
+GPU
+      │
+      ▼
+Pixels on Screen
+```
+
+---
+
+# Key Components
+
+| Component | Responsibility |
+|------------|----------------|
+| Service | Applies business logic |
+| DTO | Transfers data to the controller |
+| DispatcherServlet | Coordinates the response |
+| HttpMessageConverter | Converts Java objects to HTTP body |
+| Jackson | Serializes Java objects into JSON |
+| Tomcat | Sends HTTP response |
+| Linux Kernel | TCP/IP networking |
+| Browser | Parses HTTP response |
+| Axios | Resolves HTTP Promise |
+| React | Updates application state |
+| Virtual DOM | Detects UI changes |
+| Browser Rendering Engine | Builds the page |
+| GPU | Renders pixels to the display |
+
+---
+
+# Summary
+
+At this stage:
+
+- ✅ Service created the DTO.
+- ✅ Spring MVC selected Jackson.
+- ✅ Jackson serialized the DTO into JSON.
+- ✅ Spring created the HTTP response.
+- ✅ Tomcat wrote the response to the socket.
+- ✅ Linux transmitted TCP/IP packets.
+- ✅ Browser reconstructed the HTTP response.
+- ✅ Axios resolved the Promise.
+- ✅ React updated component state.
+- ✅ Virtual DOM detected changes.
+- ✅ Real DOM was updated.
+- ✅ Browser rendered the page.
+- ✅ GPU displayed the final pixels on the screen.
+
+---
+
+# Next Chapter
+
+📘 **Part 3 — Browser Rendering Internals**
+
+Topics:
+
+- Browser Process Architecture
+- JavaScript Event Loop
+- Call Stack
+- Web APIs
+- Microtasks vs Macrotasks
+- React Reconciliation
+- Browser Rendering Engine
+- GPU Composition
+- Frame Rendering (60 FPS)
+- Performance Optimization
+
+By the end of the next chapter, you'll understand exactly **how the browser converts JSON into visible pixels on the screen**.

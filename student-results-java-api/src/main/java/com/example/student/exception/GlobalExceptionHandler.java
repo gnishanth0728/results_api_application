@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+// Supose the user entry the wrong roll number database should return student not found
+// instead of 500 Internal server error.
+// Exception handler ensure every error has a consitent structure.
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

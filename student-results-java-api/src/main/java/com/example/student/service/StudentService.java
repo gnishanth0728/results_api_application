@@ -11,6 +11,8 @@ import com.example.student.exception.StudentNotFoundException;
 
 import java.util.List;
 
+// This is service class which act as the brain Every decision is taken here.
+// It contains the bussiness logic mean calculate the total,percentage,grade and determine the result pass or fail.
 @Service
 public class StudentService {
 
