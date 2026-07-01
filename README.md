@@ -1,4 +1,4 @@
-# results_api_application
+# Students Results Application
 
 A great next step is to design and implement a production-style project, for example:
 
