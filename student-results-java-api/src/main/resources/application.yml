@@ -2,7 +2,7 @@
 # Resource folder contains the configurations related to database.
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/school
+    url: jdbc:postgresql://postgres:5432/school
     username: student
     password: student123
 
@@ -20,3 +20,13 @@ server:
   port: 8080
   error:
     include-message: always
+  
+  # Support reverse proxy headers from nginx
+  servlet:
+    context-path: /
+  
+  tomcat:
+    remoteip:
+      remote-ip-header: X-Forwarded-For
+      protocol-header: X-Forwarded-Proto
+      port-header: X-Forwarded-Port

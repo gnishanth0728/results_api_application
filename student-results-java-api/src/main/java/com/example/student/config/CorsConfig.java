@@ -16,9 +16,17 @@ public class CorsConfig {
             public void addCorsMappings(CorsRegistry registry) {
 
                 registry.addMapping("/**")
-                        .allowedOrigins("http://34.229.154.246:5173","http://localhost:5173")
+                        .allowedOrigins(
+                            "http://localhost",
+                            "http://localhost:80",
+                            "http://localhost:5173",
+                            "http://34.229.154.246:5173",
+                            "http://nginx",
+                            "http://nginx:80"
+                        )
                         .allowedMethods("*")
-                        .allowedHeaders("*");
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
 
             }
 
