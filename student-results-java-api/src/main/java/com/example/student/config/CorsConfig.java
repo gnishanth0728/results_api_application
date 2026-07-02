@@ -24,14 +24,9 @@ public class CorsConfig {
                             "http://localhost",
                             "http://localhost:80",
                             "http://localhost:5173",
-                            "https://localhost",
-                            "https://localhost:443",
                             "http://" + publicIp,
-                            "https://" + publicIp,
                             "http://nginx",
-                            "http://nginx:80",
-                            "https://nginx",
-                            "https://nginx:443"
+                            "http://nginx:80"
                         )
                         .allowedMethods("*")
                         .allowedHeaders("*")
