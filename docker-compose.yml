@@ -9,20 +9,37 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     depends_on:
       - api
       - frontend
     networks:
       - app-network
+    restart: unless-stopped
+
+  # Certbot for Let's Encrypt SSL
+  certbot:
+    image: certbot/certbot:latest
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew --webroot -w /var/www/certbot; sleep 12h & wait $${!}; done;'"
+    networks:
+      - app-network
+    restart: unless-stopped
 
   # PostgreSQL Database
   postgres:
     image: postgres:17
     container_name: postgres-db
     environment:
-      POSTGRES_DB: school
-      POSTGRES_USER: student
-      POSTGRES_PASSWORD: student123
+      POSTGRES_DB: ${DB_NAME:-school}
+      POSTGRES_USER: ${DB_USER:-student}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-student123}
     ports:
       - "5432:5432"
     volumes:
@@ -31,10 +48,11 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U student"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-student}"]
       interval: 10s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
 
   # Spring Boot API
   api:
@@ -43,9 +61,10 @@ services:
       context: ./student-results-java-api
       dockerfile: Dockerfile
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/school
-      SPRING_DATASOURCE_USERNAME: student
-      SPRING_DATASOURCE_PASSWORD: student123
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${DB_NAME:-school}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER:-student}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-student123}
+      APP_PUBLIC_IP: ${APP_PUBLIC_IP:-localhost}
     ports:
       - "8080:8080"
     depends_on:
@@ -61,6 +80,8 @@ services:
     build:
       context: ./student-results-ui
       dockerfile: Dockerfile
+    environment:
+      VITE_API_URL: ${VITE_API_URL:-http://localhost/api}
     ports:
       - "5173:5173"
     networks:
