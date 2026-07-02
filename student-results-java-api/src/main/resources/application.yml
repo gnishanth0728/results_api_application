@@ -20,11 +20,11 @@ server:
   port: 8080
   error:
     include-message: always
-  
+
   # Support reverse proxy headers from nginx
   servlet:
     context-path: /
-  
+
   tomcat:
     remoteip:
       remote-ip-header: X-Forwarded-For
